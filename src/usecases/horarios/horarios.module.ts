@@ -5,6 +5,7 @@ import { IdentityRepository } from '../../infrastructure/repositories/identity/i
 import { HorarioRepository } from '../../infrastructure/repositories/horario/horario.repository';
 import { HorarioFactory } from '../../infrastructure/factories/horario.factory';
 import { CommonsService } from '../../infrastructure/services/commons/commons.service';
+import { DateService } from '../../infrastructure/services/date/date.service';
 
 @Module({
   controllers: [HorariosController],
@@ -14,6 +15,7 @@ import { CommonsService } from '../../infrastructure/services/commons/commons.se
     HorarioRepository,
     HorarioFactory,
     CommonsService,
+    DateService,
   ],
 })
 export class HorariosModule {}

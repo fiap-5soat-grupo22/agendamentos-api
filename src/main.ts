@@ -58,15 +58,13 @@ async function bootstrap() {
   );
 
   const config = new DocumentBuilder()
-    .setTitle('Health&Med - Clientes API')
+    .setTitle('Health&Med - Agendamentos API')
     .setDescription(
       `
       🎯Conjunto de recursos e operações para gestão dos agendamentos da operadora de plano de saúde Health&Med
       
       📕 Algumas dicas:
-        👉 As operações POST /v1/medicos e POST /v1/pacientes não necessitam de autenticação
-        👉 As operações POST /v1/medicos/oauth2/access-token e POST /v1/pacientes/oauth2/access-token utilizam o tipo de autenticação Basic (email e senha)
-        👉 As demais operações necessitam de um Access Token que pode ser obtido nas operações mencionadas acima
+        👉 Todas as operações precisam de autenticação do tipo Bearer Token.
       `,
     )
     .addBearerAuth({

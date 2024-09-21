@@ -81,8 +81,10 @@ export class HorarioRepository implements IHorariosRepository {
     return resultado.modifiedCount == 1 && resultado.matchedCount == 1;
   }
 
-  remove(uid: string): Promise<boolean> {
-    throw new Error('Method not implemented.');
+  async remove(uid: string): Promise<boolean> {
+    await this.repository.deleteOne({ _id: new ObjectId(uid) });
+
+    return true;
   }
 
   async findHorariosReservados(uidMedico: string, inicio: Date, fim: Date) {

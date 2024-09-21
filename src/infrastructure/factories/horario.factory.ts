@@ -28,7 +28,7 @@ export class HorarioFactory implements IFactory<Horario, HorarioEntity> {
     domain.fim = entity.fim;
     domain.inicio = entity.inicio;
     domain.medico = entity.medico;
-    domain.uid = entity.uid;
+    domain.uid = entity.uid.toString();
     domain.situacao = entity.situacao;
     domain.tempo = entity.tempo;
 

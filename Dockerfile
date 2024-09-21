@@ -4,6 +4,7 @@ USER "${USER}"
 
 ENV USER=node
 ENV PORT=3000
+ENV TZ=America/Sao_Paulo
 ENV ENVIRONMENT=development
 ENV PROJECT_ID=fiap-tech-challenge-5soat
 ENV PROJECT_NUMBER=91827266597

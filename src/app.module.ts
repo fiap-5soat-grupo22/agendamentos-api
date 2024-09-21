@@ -6,6 +6,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AutenticacaoService } from './infrastructure/services/autenticacao/autenticacao.service';
 import { HorariosModule } from './usecases/horarios/horarios.module';
 import { HorarioEntity } from './infrastructure/entities/horario.entity';
+import { DateService } from './infrastructure/services/date/date.service';
 
 @Module({
   imports: [
@@ -32,6 +33,6 @@ import { HorarioEntity } from './infrastructure/entities/horario.entity';
     HorariosModule,
   ],
   controllers: [AppController],
-  providers: [AppService, AutenticacaoService],
+  providers: [AppService, AutenticacaoService, DateService],
 })
 export class AppModule {}

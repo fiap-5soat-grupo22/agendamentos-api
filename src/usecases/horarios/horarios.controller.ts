@@ -49,9 +49,7 @@ export class HorariosController {
     📌 A diferença entre a data inicio e a data fim deve ser de no mínimo 10 minutos
     📌 A data inicio deve ser anterior a data fim
     📌 A data inicio e a data fim devem estar no futuro
-    📌 O horário deve ser único para o médico
-    📌 O horário não pode ser criado se o médico já tiver um horário agendado no mesmo período
-
+    📌 O horário não pode ser criado se o médico já tiver um horário agendado no mesmo período, mas pode encerrar quando começa outro horário ou iniciar quando outro horário termina.
     `,
   })
   @ApiResponse({
@@ -160,7 +158,7 @@ export class HorariosController {
     
     Regras:
     
-    📌 Por padrão traz os campos de data e hora de inicio e fim
+    📌 Por padrão traz os campos de data e hora de inicio e fim e situação
 
     `,
   })
@@ -205,11 +203,15 @@ export class HorariosController {
     description: `
     🎯 Altera um horário
     🔐 Autenticação com JWT necessária
-    🧑‍⚕️🙎 Operação para médicos
+    🧑‍⚕️ Operação para médicos
     
     Regras:
     
-    📌 TBD
+    📌 Apenas o médico que criou o horário, pode alterá-lo
+    📌 A diferença entre a data inicio e a data fim deve ser de no mínimo 10 minutos
+    📌 A data inicio deve ser anterior a data fim
+    📌 A data inicio e a data fim devem estar no futuro
+    📌 O horário não pode ser criado se o médico já tiver um horário agendado no mesmo período, mas pode encerrar quando começa outro horário ou iniciar quando outro horário termina.
 
     `,
   })
@@ -240,14 +242,56 @@ export class HorariosController {
   @Version('1')
   @Patch(':uid')
   updateV1(
+    @Req() request: FastifyRequest,
     @Param('uid') uid: string,
     @Body() updateHorarioDto: UpdateHorarioDto,
   ) {
-    return this.horariosService.update(uid, updateHorarioDto);
+    return this.horariosService.update(
+      uid,
+      updateHorarioDto,
+      request['cliente'],
+    );
   }
 
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.horariosService.remove(+id);
+  @ApiOperation({
+    description: `
+    🎯 Remove um horário
+    🔐 Autenticação com JWT necessária
+    🧑‍⚕️ Operação para médicos
+    
+    Regras:
+    
+    📌 Apenas o médico que criou o horário, pode apagá-lo.
+    📌 Horários com situação Reservado, também apagarão a consulta agendada e haverá comunicação para o paciente.
+
+    `,
+  })
+  @ApiParam({ name: 'uid', required: true, description: 'Código do horário' })
+  @ApiResponse({
+    status: 200,
+    description: 'Sucesso na deleção do horário.',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Requisição inválida',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Nenhuma autenticação válida informada',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Nenhum horário encontrado',
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Sistema indisponível',
+  })
+  @ApiBearerAuth()
+  @Habilidades(Habilidade.Medico)
+  @Version('1')
+  @Delete(':uid')
+  remove(@Req() request: FastifyRequest, @Param('uid') uid: string) {
+    return this.horariosService.remove(uid, request['cliente']);
   }
 }
