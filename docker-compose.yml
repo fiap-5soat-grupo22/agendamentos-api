@@ -1,0 +1,26 @@
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    container_name: app
+    environment:
+      - PORT=3000
+      - ENVIRONMENT=development
+      - PROJECT_ID=fiap-tech-challenge-5soat
+      - PROJECT_NUMBER=91827266597
+      - LOCATION=southamerica-east1
+      - TENANT=hackathon
+      - GITHUB_SHA=1233412asd
+      - GITHUB_RUN_ID=98736sa
+      - FIREBASE_API_KEY=AIzaSyChdMH2Wb3fGCQe9sWuXfgOd9C5ScEEPZk
+      - MONGODB_URL=mongodb+srv://fiaptcgrupo22:S2UHqqXKul2C1szS@fiap-tech-challenge-5so.rlozp.mongodb.net/?retryWrites=true&w=majority&appName=fiap-tech-challenge-5soat
+    ports:
+      - "3000:3000"  
+    user: "node" 
+    networks:
+      - hackathon-network  
+networks: 
+    hackathon-network:
+      driver: bridge
+      
