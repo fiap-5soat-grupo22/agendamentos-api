@@ -49,6 +49,8 @@ export class ConsultasService {
     }
 
     if (isBefore(horario.inicio, this.dateService.now())) {
+      console.info(horario.inicio, this.dateService.now());
+
       throw new BadRequestException(
         'A data inicio e a data fim devem estar no futuro',
       );
