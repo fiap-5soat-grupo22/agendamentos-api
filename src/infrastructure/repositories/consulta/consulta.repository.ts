@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
-import { DataSource, FindOptionsSelect, MongoRepository } from 'typeorm';
+import { DataSource, FindOptionsSelect, InsertOneResult, MongoRepository } from 'typeorm';
 import { IConsultasRepository } from '../../../usecases/consultas/consultas.interface';
 import { Consulta } from '../../../domain/models/consulta.model';
 import { ConsultaEntity } from '../../entities/consulta.entity';
@@ -24,8 +24,8 @@ export class ConsultaRepository implements IConsultasRepository {
   async create(domain: Consulta): Promise<string> {
     this.repository = this.dataSource.getMongoRepository(ConsultaEntity);
     const entity: ConsultaEntity = this.consultaFactory.toEntity(domain);
-    const persisted: ConsultaEntity = await this.repository.save(entity);
-    return persisted._id.toString();
+    const persisted: InsertOneResult = await this.repository.insertOne(entity);
+    return persisted.insertedId.toString();
   }
 
   async findAll(
