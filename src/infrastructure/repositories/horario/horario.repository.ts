@@ -25,7 +25,7 @@ export class HorarioRepository implements IHorariosRepository {
     this.repository = this.dataSource.getMongoRepository(HorarioEntity);
     const entity: HorarioEntity = this.horarioFactory.toEntity(domain);
     const persisted: HorarioEntity = await this.repository.save(entity);
-    return persisted.uid;
+    return persisted._id.toString();
   }
 
   async findAll(

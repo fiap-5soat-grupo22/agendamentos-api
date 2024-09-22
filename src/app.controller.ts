@@ -19,8 +19,8 @@ export class AppController {
 
   @Post()
   publish(@Body() body: any, @Req() request: FastifyRequest): unknown {
-    console.info('BODY', JSON.stringify(body));
-    console.info('HEADERS', JSON.stringify(request.headers));
+    // console.info('BODY', JSON.stringify(body));
+    // console.info('HEADERS', JSON.stringify(request.headers));
 
     /** Exemplo: projects/fiap-tech-challenge-5soat/subscriptions/solicitacao_consulta */
     const subscription = body.subscription.split('/')[3];

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { IFactory } from '../interfaces/factory.interface';
 import { Horario } from '../../domain/models/horario.model';
 import { HorarioEntity } from '../entities/horario.entity';
+import { ObjectId } from 'mongodb';
 
 @Injectable()
 export class HorarioFactory implements IFactory<Horario, HorarioEntity> {
@@ -10,7 +11,7 @@ export class HorarioFactory implements IFactory<Horario, HorarioEntity> {
 
     const entity = new HorarioEntity();
 
-    entity.uid = domain.uid;
+    entity._id = new ObjectId(domain.uid);
     entity.fim = domain?.fim;
     entity.inicio = domain?.inicio;
     entity.medico = domain?.medico;
@@ -28,7 +29,7 @@ export class HorarioFactory implements IFactory<Horario, HorarioEntity> {
     domain.fim = entity.fim;
     domain.inicio = entity.inicio;
     domain.medico = entity.medico;
-    domain.uid = entity.uid.toString();
+    domain.uid = entity._id.toString();
     domain.situacao = entity.situacao;
     domain.tempo = entity.tempo;
 

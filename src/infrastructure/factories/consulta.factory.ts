@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { IFactory } from '../interfaces/factory.interface';
 import { Consulta } from '../../domain/models/consulta.model';
 import { ConsultaEntity } from '../entities/consulta.entity';
+import { ObjectId } from 'mongodb';
 
 @Injectable()
 export class ConsultaFactory implements IFactory<Consulta, ConsultaEntity> {
@@ -10,7 +11,7 @@ export class ConsultaFactory implements IFactory<Consulta, ConsultaEntity> {
 
     const entity = new ConsultaEntity();
 
-    entity.uid = domain.uid;
+    entity._id = new ObjectId(domain.uid);
     entity.fim = domain?.fim;
     entity.inicio = domain?.inicio;
     entity.medico = domain?.medico;
@@ -29,7 +30,7 @@ export class ConsultaFactory implements IFactory<Consulta, ConsultaEntity> {
     domain.fim = entity.fim;
     domain.inicio = entity.inicio;
     domain.medico = entity.medico;
-    domain.uid = entity.uid.toString();
+    domain.uid = entity._id.toString();
     domain.situacao = entity.situacao;
     domain.tempo = entity.tempo;
     domain.paciente = entity.paciente;

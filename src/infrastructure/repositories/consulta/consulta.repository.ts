@@ -25,7 +25,7 @@ export class ConsultaRepository implements IConsultasRepository {
     this.repository = this.dataSource.getMongoRepository(ConsultaEntity);
     const entity: ConsultaEntity = this.consultaFactory.toEntity(domain);
     const persisted: ConsultaEntity = await this.repository.save(entity);
-    return persisted.uid;
+    return persisted._id.toString();
   }
 
   async findAll(

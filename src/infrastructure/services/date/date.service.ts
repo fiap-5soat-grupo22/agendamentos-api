@@ -8,6 +8,6 @@ export class DateService {
   }
 
   now() {
-    return fromZonedTime(new Date(), process.env.TZ);
+    return fromZonedTime(new Date(), null);
   }
 }
