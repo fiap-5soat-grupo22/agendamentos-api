@@ -8,7 +8,9 @@ import { SituacaoConsulta } from '../../domain/enums/situacao-consulta.enum';
   name: 'consultas',
 })
 export class ConsultaEntity {
-  @ObjectIdColumn()
+  @ObjectIdColumn({
+    name: '_id',
+  })
   uid: string;
 
   @Column({ type: 'datetime' })
