@@ -72,13 +72,6 @@ async function bootstrap() {
       scheme: 'bearer',
       bearerFormat: 'JWT',
     })
-    .addBasicAuth(
-      {
-        type: 'http',
-        scheme: 'basic',
-      },
-      'basic',
-    )
     .setVersion('1.0')
     .build();
   const document = SwaggerModule.createDocument(app, config);

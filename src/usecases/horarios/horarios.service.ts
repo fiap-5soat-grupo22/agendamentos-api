@@ -146,6 +146,8 @@ export class HorariosService {
 
     if (!domain) throw new NotFoundException('horário não encontrado');
 
+    console.info(medico.uid.toString(), domain.medico.uid.toString());
+
     if (medico.uid.toString() !== domain.medico.uid.toString()) {
       throw new ForbiddenException('Este usuário não pode realizar essa ação');
     }

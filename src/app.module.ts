@@ -7,6 +7,7 @@ import { AutenticacaoService } from './infrastructure/services/autenticacao/aute
 import { HorariosModule } from './usecases/horarios/horarios.module';
 import { HorarioEntity } from './infrastructure/entities/horario.entity';
 import { DateService } from './infrastructure/services/date/date.service';
+import { ConsultasModule } from './usecases/consultas/consultas.module';
 
 @Module({
   imports: [
@@ -27,10 +28,15 @@ import { DateService } from './infrastructure/services/date/date.service';
             path: '/',
             module: HorariosModule,
           },
+          {
+            path: '/',
+            module: ConsultasModule,
+          },
         ],
       },
     ]),
     HorariosModule,
+    ConsultasModule,
   ],
   controllers: [AppController],
   providers: [AppService, AutenticacaoService, DateService],
