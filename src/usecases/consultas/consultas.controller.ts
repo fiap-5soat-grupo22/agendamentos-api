@@ -29,6 +29,7 @@ import { IdentityGuard } from '../../infrastructure/guards/identity/identity.gua
 import { FastifyRequest } from 'fastify';
 import { Habilidade } from '../../domain/enums/habilidade.enum';
 import { Habilidades } from '../../infrastructure/decorators/habilidades.decorators';
+import { OnEvent } from '@nestjs/event-emitter';
 
 @Controller('consultas')
 @ApiTags('Consultas')
@@ -290,5 +291,10 @@ export class ConsultasController {
   @Delete(':uid')
   remove(@Req() request: FastifyRequest, @Param('uid') uid: string) {
     return this.consultasService.remove(uid, request['cliente']);
+  }
+
+  @OnEvent('solicitacao_consulta', { async: false })
+  handleOrderCreatedEvent(payload: object) {
+    console.info(payload);
   }
 }

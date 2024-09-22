@@ -8,6 +8,7 @@ import { HorariosModule } from './usecases/horarios/horarios.module';
 import { HorarioEntity } from './infrastructure/entities/horario.entity';
 import { DateService } from './infrastructure/services/date/date.service';
 import { ConsultasModule } from './usecases/consultas/consultas.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
 
 @Module({
   imports: [
@@ -35,6 +36,7 @@ import { ConsultasModule } from './usecases/consultas/consultas.module';
         ],
       },
     ]),
+    EventEmitterModule.forRoot(),
     HorariosModule,
     ConsultasModule,
   ],
