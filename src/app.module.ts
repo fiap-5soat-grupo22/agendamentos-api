@@ -10,6 +10,7 @@ import { DateService } from './infrastructure/services/date/date.service';
 import { ConsultasModule } from './usecases/consultas/consultas.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { EventService } from './infrastructure/repositories/event/event.service';
+import { ConsultaEntity } from './infrastructure/entities/consulta.entity';
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { EventService } from './infrastructure/repositories/event/event.service'
       authSource: 'admin',
       autoLoadEntities: true,
     }),
-    TypeOrmModule.forFeature([HorarioEntity], 'agendamentos'),
+    TypeOrmModule.forFeature([HorarioEntity, ConsultaEntity], 'agendamentos'),
     RouterModule.register([
       {
         path: '/',
