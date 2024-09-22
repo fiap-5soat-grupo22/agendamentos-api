@@ -16,7 +16,7 @@ import { HorariosService } from '../horarios/horarios.service';
 import { Horario } from '../../domain/models/horario.model';
 import { Paciente } from '../../domain/models/paciente.model';
 import { SituacaoHorario } from '../../domain/enums/situacao-horario.enum';
-import { EventService } from '../../infrastructure/repositories/event/event.service';
+import { EventRepository } from '../../infrastructure/repositories/event/event.repository';
 import { EventosConsulta } from '../../infrastructure/enums/eventos-consulta.enum';
 
 @Injectable()
@@ -31,7 +31,7 @@ export class ConsultasService {
   private readonly horariosService: HorariosService;
 
   @Inject()
-  private readonly eventService: EventService;
+  private readonly eventRepository: EventRepository;
 
   async scheduling(
     createConsultaDto: CreateConsultaDto,
@@ -60,7 +60,7 @@ export class ConsultasService {
     consulta.paciente = cliente as Paciente;
     consulta.situacao = SituacaoConsulta.Agendada;
 
-    await this.eventService.publish(
+    await this.eventRepository.publish(
       EventosConsulta.Topic,
       EventosConsulta.Solicitada,
       consulta,
@@ -108,7 +108,7 @@ export class ConsultasService {
   async create(domain: Consulta): Promise<boolean> {
     await this.consultaRepository.create(domain);
 
-    await this.eventService.publish(
+    await this.eventRepository.publish(
       EventosConsulta.Topic,
       EventosConsulta.Criada,
       domain,

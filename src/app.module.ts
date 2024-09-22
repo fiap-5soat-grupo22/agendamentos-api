@@ -9,8 +9,8 @@ import { HorarioEntity } from './infrastructure/entities/horario.entity';
 import { DateService } from './infrastructure/services/date/date.service';
 import { ConsultasModule } from './usecases/consultas/consultas.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
-import { EventService } from './infrastructure/repositories/event/event.service';
 import { ConsultaEntity } from './infrastructure/entities/consulta.entity';
+import { EventRepository } from './infrastructure/repositories/event/event.repository';
 
 @Module({
   imports: [
@@ -43,6 +43,6 @@ import { ConsultaEntity } from './infrastructure/entities/consulta.entity';
     ConsultasModule,
   ],
   controllers: [AppController],
-  providers: [AppService, AutenticacaoService, DateService, EventService],
+  providers: [AppService, AutenticacaoService, DateService, EventRepository],
 })
 export class AppModule {}

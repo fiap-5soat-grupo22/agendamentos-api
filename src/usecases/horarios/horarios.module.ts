@@ -6,6 +6,7 @@ import { HorarioRepository } from '../../infrastructure/repositories/horario/hor
 import { HorarioFactory } from '../../infrastructure/factories/horario.factory';
 import { CommonsService } from '../../infrastructure/services/commons/commons.service';
 import { DateService } from '../../infrastructure/services/date/date.service';
+import { EventRepository } from '../../infrastructure/repositories/event/event.repository';
 
 @Module({
   controllers: [HorariosController],
@@ -14,6 +15,7 @@ import { DateService } from '../../infrastructure/services/date/date.service';
     HorariosService,
     HorarioRepository,
     HorarioFactory,
+    EventRepository,
     CommonsService,
     DateService,
   ],

@@ -15,6 +15,9 @@ import { Cliente } from '../../domain/models/cliente.model';
 import { Medico } from '../../domain/models/medico.model';
 import { DateService } from '../../infrastructure/services/date/date.service';
 import { HorarioFactory } from '../../infrastructure/factories/horario.factory';
+import { EventRepository } from '../../infrastructure/repositories/event/event.repository';
+import { EventosHorario } from '../../infrastructure/enums/eventos-horario.enum';
+import { Consulta } from '../../domain/models/consulta.model';
 
 @Injectable()
 export class HorariosService {
@@ -26,6 +29,9 @@ export class HorariosService {
 
   @Inject()
   private readonly horarioFactory: HorarioFactory;
+
+  @Inject()
+  private readonly eventRepository: EventRepository;
 
   async create(
     createHorarioDto: CreateHorarioDto,
@@ -93,10 +99,20 @@ export class HorariosService {
     };
   }
 
-  async updateStatusConsultaCriada(uid: string) {
-    const domain = await this.horarioRepository.findOne(uid, null);
-    domain.situacao = SituacaoHorario.Reservado;
-    await this.horarioRepository.update(uid, domain);
+  async updateStatusConsultaCriada(domain: Consulta) {
+    const horario = await this.horarioRepository.findOne(
+      domain.uid.toString(),
+      null,
+    );
+    horario.situacao = SituacaoHorario.Reservado;
+    await this.horarioRepository.update(horario.uid, horario);
+
+    await this.eventRepository.publish(
+      EventosHorario.Topic,
+      EventosHorario.Reservado,
+      domain,
+    );
+
     return {
       message: 'ok',
       statusCode: 200,
