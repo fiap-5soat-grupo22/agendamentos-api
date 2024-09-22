@@ -16,6 +16,8 @@ import { HorariosService } from '../horarios/horarios.service';
 import { Horario } from '../../domain/models/horario.model';
 import { Paciente } from '../../domain/models/paciente.model';
 import { SituacaoHorario } from '../../domain/enums/situacao-horario.enum';
+import { EventService } from '../../infrastructure/repositories/event/event.service';
+import { EventosConsulta } from '../../infrastructure/enums/eventos-consulta.enum';
 
 @Injectable()
 export class ConsultasService {
@@ -27,6 +29,9 @@ export class ConsultasService {
 
   @Inject()
   private readonly horariosService: HorariosService;
+
+  @Inject()
+  private readonly eventService: EventService;
 
   async create(
     createConsultaDto: CreateConsultaDto,
@@ -53,7 +58,12 @@ export class ConsultasService {
     consulta.paciente = cliente as Paciente;
     consulta.situacao = SituacaoConsulta.Agendada;
 
-    //* Coloco na fila
+    await this.eventService.publish(
+      EventosConsulta.Topic,
+      EventosConsulta.Solicitada,
+      consulta,
+      true,
+    );
 
     return {
       message: 'ok',

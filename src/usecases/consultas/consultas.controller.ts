@@ -295,6 +295,6 @@ export class ConsultasController {
 
   @OnEvent('solicitacao_consulta', { async: false })
   handleOrderCreatedEvent(payload: object) {
-    console.info(payload);
+    
   }
 }

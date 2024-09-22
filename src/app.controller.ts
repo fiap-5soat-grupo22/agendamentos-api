@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Req } from '@nestjs/common';
+import { Body, Controller, GatewayTimeoutException, Get, Post, Req } from '@nestjs/common';
 import { AppService } from './app.service';
 import { ApiExcludeController } from '@nestjs/swagger';
 import { FastifyRequest } from 'fastify';
@@ -18,15 +18,18 @@ export class AppController {
   }
 
   @Post()
-  publish(@Body() body: any, @Req() request: FastifyRequest): string {
+  publish(@Body() body: any, @Req() request: FastifyRequest): unknown {
     console.info('BODY', JSON.stringify(body));
     console.info('HEADERS', JSON.stringify(request.headers));
 
     /** Exemplo: projects/fiap-tech-challenge-5soat/subscriptions/solicitacao_consulta */
     const subscription = body.subscription.split('/')[3];
 
-    this.eventEmitter.emit(subscription, Buffer.from(body.data, 'base64'));
+    const resultado: boolean = this.eventEmitter.emit(
+      subscription,
+      Buffer.from(body['message'].data, 'base64').toString('utf-8'),
+    );
 
-    return 'ok';
+    return resultado ? 'ok' : GatewayTimeoutException;
   }
 }

@@ -10,6 +10,7 @@ import { HorariosModule } from '../horarios/horarios.module';
 import { HorariosService } from '../horarios/horarios.service';
 import { HorarioRepository } from '../../infrastructure/repositories/horario/horario.repository';
 import { HorarioFactory } from '../../infrastructure/factories/horario.factory';
+import { EventService } from '../../infrastructure/repositories/event/event.service';
 
 @Module({
   imports: [HorariosModule],
@@ -24,6 +25,7 @@ import { HorarioFactory } from '../../infrastructure/factories/horario.factory';
     HorariosService,
     HorarioRepository,
     HorarioFactory,
+    EventService,
   ],
 })
 export class ConsultasModule {}
