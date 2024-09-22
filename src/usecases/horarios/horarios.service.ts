@@ -93,6 +93,16 @@ export class HorariosService {
     };
   }
 
+  async updateStatusConsultaCriada(uid: string) {
+    const domain = await this.horarioRepository.findOne(uid, null);
+    domain.situacao = SituacaoHorario.Reservado;
+    await this.horarioRepository.update(uid, domain);
+    return {
+      message: 'ok',
+      statusCode: 200,
+    };
+  }
+
   async remove(uid: string, medico: Medico) {
     const persisted = await this.findToUpdate(uid, medico);
 

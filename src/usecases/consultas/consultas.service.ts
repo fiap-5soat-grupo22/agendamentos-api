@@ -33,7 +33,7 @@ export class ConsultasService {
   @Inject()
   private readonly eventService: EventService;
 
-  async create(
+  async scheduling(
     createConsultaDto: CreateConsultaDto,
     cliente: Cliente,
   ): Promise<object> {
@@ -101,6 +101,19 @@ export class ConsultasService {
     }
 
     return this.consultaRepository.remove(uid);
+  }
+
+  async create(domain: Consulta): Promise<boolean> {
+    await this.consultaRepository.create(domain);
+
+    await this.eventService.publish(
+      EventosConsulta.Topic,
+      EventosConsulta.Criada,
+      domain,
+      true,
+    );
+
+    return true;
   }
 
   private async findToUpdate(uid: string, cliente: Cliente): Promise<Consulta> {

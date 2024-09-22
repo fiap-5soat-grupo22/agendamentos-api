@@ -29,6 +29,7 @@ import { IdentityGuard } from '../../infrastructure/guards/identity/identity.gua
 import { FastifyRequest } from 'fastify';
 import { Habilidade } from '../../domain/enums/habilidade.enum';
 import { Habilidades } from '../../infrastructure/decorators/habilidades.decorators';
+import { OnEvent } from '@nestjs/event-emitter';
 
 @Controller('horarios')
 @ApiTags('Horários')
@@ -293,5 +294,10 @@ export class HorariosController {
   @Delete(':uid')
   remove(@Req() request: FastifyRequest, @Param('uid') uid: string) {
     return this.horariosService.remove(uid, request['cliente']);
+  }
+
+  @OnEvent('consulta.criada', { async: false })
+  handleConsultaCriadaEvent(payload: object) {
+    return this.horariosService.updateStatusConsultaCriada(payload['uid']);
   }
 }

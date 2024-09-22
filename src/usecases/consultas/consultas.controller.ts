@@ -30,6 +30,7 @@ import { FastifyRequest } from 'fastify';
 import { Habilidade } from '../../domain/enums/habilidade.enum';
 import { Habilidades } from '../../infrastructure/decorators/habilidades.decorators';
 import { OnEvent } from '@nestjs/event-emitter';
+import { Consulta } from '../../domain/models/consulta.model';
 
 @Controller('consultas')
 @ApiTags('Consultas')
@@ -75,7 +76,10 @@ export class ConsultasController {
     @Req() request: FastifyRequest,
     @Body() createConsultaDto: CreateConsultaDto,
   ) {
-    return this.consultasService.create(createConsultaDto, request['cliente']);
+    return this.consultasService.scheduling(
+      createConsultaDto,
+      request['cliente'],
+    );
   }
 
   @ApiOperation({
@@ -293,8 +297,8 @@ export class ConsultasController {
     return this.consultasService.remove(uid, request['cliente']);
   }
 
-  @OnEvent('solicitacao_consulta', { async: false })
-  handleOrderCreatedEvent(payload: object) {
-    
+  @OnEvent('consulta.solicitada', { async: false })
+  handleConsultaSolicitadaEvent(payload: Consulta) {
+    return this.consultasService.create(payload);
   }
 }
