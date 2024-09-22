@@ -27,7 +27,7 @@ export class AppController {
 
     const resultado: boolean = this.eventEmitter.emit(
       subscription,
-      Buffer.from(body['message'].data, 'base64').toString('utf-8'),
+      JSON.parse(Buffer.from(body['message'].data, 'base64').toString('utf-8')),
     );
 
     return resultado ? 'ok' : GatewayTimeoutException;

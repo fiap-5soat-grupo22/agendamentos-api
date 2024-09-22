@@ -298,6 +298,7 @@ export class HorariosController {
 
   @OnEvent('consulta.criada', { async: false })
   handleConsultaCriadaEvent(payload: object) {
+    console.info(payload)
     return this.horariosService.updateStatusConsultaCriada(payload['uid']);
   }
 }
