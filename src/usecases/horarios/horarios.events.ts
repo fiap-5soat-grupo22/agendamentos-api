@@ -16,6 +16,6 @@ export class HorariosEvents {
 
   @OnEvent(EventosConsulta.Cancelada, { async: false })
   handleConsultaCanceladaEvent(domain: Consulta) {
-    return this.horariosService.updateStatusConsultaCriada(domain);
+    return this.horariosService.updateStatusConsultaLivre(domain);
   }
 }
