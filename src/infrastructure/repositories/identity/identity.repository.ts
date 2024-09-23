@@ -104,8 +104,6 @@ export class IdentityRepository implements IAutenticacaoRepository {
   private fromUserRecord(entity: UserRecord | DecodedIdToken): Cliente {
     const domain: Cliente = new Cliente();
 
-    console.info(entity);
-
     domain.email = entity.email;
     domain.nome = entity.displayName || entity['cliente']['nome'];
     domain.identity = entity.uid;

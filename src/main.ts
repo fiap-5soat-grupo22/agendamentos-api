@@ -19,8 +19,6 @@ import { initializeApp as firebaseAdmin } from 'firebase-admin/app';
 import { initializeApp as firebaseApp } from 'firebase/app';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
-console.info(process.env);
-
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,

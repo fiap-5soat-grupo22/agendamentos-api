@@ -299,7 +299,6 @@ export class ConsultasController {
 
   @OnEvent('consulta.solicitada', { async: false })
   handleConsultaSolicitadaEvent(payload: Consulta) {
-    console.info(payload);
     return this.consultasService.create(payload);
   }
 }

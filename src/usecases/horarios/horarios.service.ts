@@ -102,7 +102,7 @@ export class HorariosService {
   async updateStatusConsultaCriada(domain: Consulta) {
     const horario = await this.horarioRepository.findOne(
       domain.uid.toString(),
-      null,
+      '',
     );
     horario.situacao = SituacaoHorario.Reservado;
     await this.horarioRepository.update(horario.uid, horario);
@@ -187,8 +187,6 @@ export class HorariosService {
     const domain = await this.horarioRepository.findOne(uid, fields);
 
     if (!domain) throw new NotFoundException('horário não encontrado');
-
-    console.info(medico.uid.toString(), domain.medico.uid.toString());
 
     if (medico.uid.toString() !== domain.medico.uid.toString()) {
       throw new ForbiddenException('Este usuário não pode realizar essa ação');

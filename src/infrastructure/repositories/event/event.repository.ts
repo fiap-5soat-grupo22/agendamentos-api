@@ -32,7 +32,6 @@ export class EventRepository {
     const data = JSON.parse(
       Buffer.from(body['message'].data, 'base64').toString('utf-8'),
     );
-
     return this.eventEmitter.emit(subscription, data);
   }
 }
