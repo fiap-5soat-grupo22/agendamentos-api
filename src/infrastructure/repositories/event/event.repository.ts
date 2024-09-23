@@ -27,7 +27,7 @@ export class EventRepository {
     console.info('Message published', topic, event, messageId);
   }
 
-  subscription(body: unknown): boolean {
+  dispatch(body: unknown): boolean {
     const subscription = body['subscription']?.split('/')[3];
     const data = JSON.parse(
       Buffer.from(body['message'].data, 'base64').toString('utf-8'),

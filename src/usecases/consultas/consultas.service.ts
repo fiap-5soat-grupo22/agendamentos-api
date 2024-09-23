@@ -102,7 +102,19 @@ export class ConsultasService {
       //* Enmviar evento de cancelamento da consulta
     }
 
-    return this.consultaRepository.remove(uid);
+    await this.consultaRepository.remove(uid);
+
+    await this.eventRepository.publish(
+      EventosConsulta.Topic,
+      EventosConsulta.Cancelada,
+      domain,
+      true,
+    );
+
+    return {
+      message: 'ok',
+      statusCode: 200,
+    };
   }
 
   async create(domain: Consulta): Promise<boolean> {

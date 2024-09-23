@@ -119,6 +119,22 @@ export class HorariosService {
     };
   }
 
+  async updateStatusConsultaLivre(domain: Consulta) {
+    const horario = await this.horarioRepository.findOne(
+      domain.uid.toString(),
+      null,
+    );
+    horario.situacao = SituacaoHorario.Livre;
+    await this.horarioRepository.update(horario.uid, horario);
+
+    //** Aqui pdoeria lançar um evento para avisar ao médico que houve o cancelamento */
+
+    return {
+      message: 'ok',
+      statusCode: 200,
+    };
+  }
+
   async remove(uid: string, medico: Medico) {
     const persisted = await this.findToUpdate(uid, medico);
 
@@ -160,7 +176,7 @@ export class HorariosService {
 
     if (domain.tempo < 10 || isNaN(domain.tempo)) {
       throw new BadRequestException(
-        'A data de inicio deve ser anterior a data fim com um intervalo de no mínimo 10 minutos.'
+        'A data de inicio deve ser anterior a data fim com um intervalo de no mínimo 10 minutos.',
       );
     }
   }

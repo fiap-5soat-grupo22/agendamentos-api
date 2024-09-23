@@ -5,7 +5,7 @@ import { EventRepository } from './infrastructure/repositories/event/event.repos
 export class AppService {
   constructor(private readonly eventRepository: EventRepository) {}
 
-  publish(
+  dispatchEvent(
     body: unknown,
     request: FastifyRequest,
   ): object | BadRequestException {
@@ -16,7 +16,7 @@ export class AppService {
       JSON.stringify(request.headers),
     );
 
-    if (this.eventRepository.subscription(body)) {
+    if (this.eventRepository.dispatch(body)) {
       return { statusCode: 200, message: 'OK' };
     } else {
       new BadRequestException('Falha na subscrição');

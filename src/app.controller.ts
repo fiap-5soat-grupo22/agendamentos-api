@@ -14,7 +14,10 @@ export class AppController {
   }
 
   @Post()
-  publish(@Body() body: unknown, @Req() request: FastifyRequest): unknown {
-    return this.appService.publish(body, request);
+  dispatchEventV1(
+    @Body() body: unknown,
+    @Req() request: FastifyRequest,
+  ): unknown {
+    return this.appService.dispatchEvent(body, request);
   }
 }
