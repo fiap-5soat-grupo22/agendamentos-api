@@ -28,9 +28,6 @@ export class HorariosService {
   private readonly dateService: DateService;
 
   @Inject()
-  private readonly horarioFactory: HorarioFactory;
-
-  @Inject()
   private readonly eventRepository: EventRepository;
 
   async create(
