@@ -16,8 +16,8 @@ ENV FIREBASE_API_KEY=AIzaSyChdMH2Wb3fGCQe9sWuXfgOd9C5ScEEPZk
 ENV MONGODB_URL=mongodb+srv://fiaptcgrupo22:S2UHqqXKul2C1szS@fiap-tech-challenge-5so.rlozp.mongodb.net/?retryWrites=true&w=majority&appName=fiap-tech-challenge-5soat
 ENV PATH="/home/node/.npm-global/bin:${PATH}"
 ENV NPM_CONFIG_PREFIX="/home/node/.npm-global"
-ENV SENDGRID_API_KEY=
-ENV SENDGRID_TO_EMAIL=daniel.clemente@sortfy.com.br
+ENV EMAIL_PROVIDER_API_KEY=
+ENV EMAIL_PROVIDER_ADDRESS_FROM=daniel.clemente@sortfy.com.br
 ENV TZ=America/Sao_Paulo
 
 RUN mkdir -p "${NPM_CONFIG_PREFIX}/lib"

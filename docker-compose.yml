@@ -15,8 +15,8 @@ services:
       - GITHUB_RUN_ID=98736sa
       - FIREBASE_API_KEY=AIzaSyChdMH2Wb3fGCQe9sWuXfgOd9C5ScEEPZk
       - MONGODB_URL=mongodb+srv://fiaptcgrupo22:S2UHqqXKul2C1szS@fiap-tech-challenge-5so.rlozp.mongodb.net/?retryWrites=true&w=majority&appName=fiap-tech-challenge-5soat
-      - SENDGRID_API_KEY=
-      - SENDGRID_TO_EMAIL=daniel.clemente@sortfy.com.br    
+      - EMAIL_PROVIDER_API_KEY=
+      - EMAIL_PROVIDER_ADDRESS_FROM=daniel.clemente@sortfy.com.br    
     ports:
       - "3000:3000"  
     user: "node" 
