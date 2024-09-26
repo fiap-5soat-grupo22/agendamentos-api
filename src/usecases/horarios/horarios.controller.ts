@@ -145,8 +145,9 @@ export class HorariosController {
   findAllV1(
     @Query('skip', new DefaultValuePipe(0)) skip: string,
     @Query('take', new DefaultValuePipe(10)) take: string,
-    @Query('fields', new DefaultValuePipe('inicio,fim')) fields: string,
-    @Query('filters', new DefaultValuePipe('situacao=livre')) filters: string,
+    @Query('fields', new DefaultValuePipe('inicio,fim,situacao'))
+    fields: string,
+    @Query('filters', new DefaultValuePipe(null)) filters: string,
   ) {
     return this.horariosService.findAll(skip, take, fields, filters);
   }
