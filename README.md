@@ -58,6 +58,12 @@ $ pnpm run test:e2e
 $ pnpm run test:cov
 ```
 
+# Swagger – Agendamento – Horários/Consultas
+
+https://agendamentos-api-91827266597.southamerica-east1.run.app/docs
+
+Rodar a api post /v1/medicos/oauth2/access-token ou POST /v1/pacientes/oauth2/access-token para gerar o token e incluir no campo bearer do botão Authorize.
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
