@@ -14,7 +14,6 @@ import { SituacaoHorario } from '../../domain/enums/situacao-horario.enum';
 import { Cliente } from '../../domain/models/cliente.model';
 import { Medico } from '../../domain/models/medico.model';
 import { DateService } from '../../infrastructure/services/date/date.service';
-import { HorarioFactory } from '../../infrastructure/factories/horario.factory';
 import { EventRepository } from '../../infrastructure/repositories/event/event.repository';
 import { EventosHorario } from '../../infrastructure/enums/eventos-horario.enum';
 import { Consulta } from '../../domain/models/consulta.model';

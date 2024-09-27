@@ -82,6 +82,7 @@ export class HorarioRepository implements IHorariosRepository {
   }
 
   async remove(uid: string): Promise<boolean> {
+    this.repository = this.dataSource.getMongoRepository(HorarioEntity);
     await this.repository.deleteOne({ _id: new ObjectId(uid) });
 
     return true;

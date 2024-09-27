@@ -29,7 +29,6 @@ import { IdentityGuard } from '../../infrastructure/guards/identity/identity.gua
 import { FastifyRequest } from 'fastify';
 import { Habilidade } from '../../domain/enums/habilidade.enum';
 import { Habilidades } from '../../infrastructure/decorators/habilidades.decorators';
-import { OnEvent } from '@nestjs/event-emitter';
 
 @Controller('horarios')
 @ApiTags('Horários')

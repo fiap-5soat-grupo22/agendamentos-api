@@ -7,7 +7,8 @@ export class EventRepository {
   @Inject()
   private readonly eventEmitter: EventEmitter2;
 
-  pubSubClient: PubSub = new PubSub();
+  @Inject()
+  private readonly pubsub: PubSub;
 
   async publish(
     topic: string,
@@ -15,9 +16,9 @@ export class EventRepository {
     data: object,
     once: boolean = true,
   ): Promise<void> {
-    const messageId = await this.pubSubClient.topic(topic).publishMessage({
+    const messageId = await this.pubsub.topic(topic).publishMessage({
       attributes: {
-        domain: 'agendamentos',
+        domain: 'clientes',
         event: event,
       },
       isExactlyOnceDelivery: once,
@@ -32,6 +33,7 @@ export class EventRepository {
     const data = JSON.parse(
       Buffer.from(body['message'].data, 'base64').toString('utf-8'),
     );
+
     return this.eventEmitter.emit(subscription, data);
   }
 }

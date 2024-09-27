@@ -11,9 +11,16 @@ import { ConsultasModule } from './usecases/consultas/consultas.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { ConsultaEntity } from './infrastructure/entities/consulta.entity';
 import { EventRepository } from './infrastructure/repositories/event/event.repository';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import { join } from 'path';
+import { PubSub } from '@google-cloud/pubsub';
 
 @Module({
   imports: [
+    ServeStaticModule.forRoot({
+      renderPath: '/coverage',
+      rootPath: join(__dirname.replaceAll('\\src', ''), '..', 'coverage', 'lcov-report'),
+    }),
     TypeOrmModule.forRoot({
       type: 'mongodb',
       name: 'agendamentos',
@@ -40,9 +47,10 @@ import { EventRepository } from './infrastructure/repositories/event/event.repos
     ]),
     EventEmitterModule.forRoot(),
     HorariosModule,
-    ConsultasModule,
+    ConsultasModule
   ],
   controllers: [AppController],
-  providers: [AppService, AutenticacaoService, DateService, EventRepository],
+  providers: [AppService, AutenticacaoService, DateService, EventRepository,
+    PubSub],
 })
 export class AppModule {}

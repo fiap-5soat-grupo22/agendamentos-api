@@ -11,6 +11,7 @@ import { HorariosService } from '../horarios/horarios.service';
 import { HorarioRepository } from '../../infrastructure/repositories/horario/horario.repository';
 import { HorarioFactory } from '../../infrastructure/factories/horario.factory';
 import { EventRepository } from '../../infrastructure/repositories/event/event.repository';
+import { PubSub } from '@google-cloud/pubsub';
 
 @Module({
   imports: [HorariosModule],
@@ -27,6 +28,7 @@ import { EventRepository } from '../../infrastructure/repositories/event/event.r
     HorarioRepository,
     HorarioFactory,
     EventRepository,
+    { provide: PubSub, useClass: PubSub },
   ],
 })
 export class ConsultasModule {}

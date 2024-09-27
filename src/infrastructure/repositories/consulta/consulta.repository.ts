@@ -82,6 +82,7 @@ export class ConsultaRepository implements IConsultasRepository {
   }
 
   async remove(uid: string): Promise<boolean> {
+    this.repository = this.dataSource.getMongoRepository(ConsultaEntity);
     await this.repository.deleteOne({ _id: new ObjectId(uid) });
 
     return true;

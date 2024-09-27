@@ -105,15 +105,12 @@ export class IdentityRepository implements IAutenticacaoRepository {
     const domain: Cliente = new Cliente();
 
     domain.email = entity.email;
-    domain.nome = entity.displayName || entity['cliente']['nome'];
+    domain.nome = entity.displayName;
     domain.identity = entity.uid;
     domain.ativo = !entity.disabled;
     domain.cpf = entity['cliente']['cpf'];
     domain.habilidades = entity['cliente']['habilidades'];
     domain.uid = entity['cliente']['uid'];
-
-    //Caso seja médico
-    domain['crm'] = entity['cliente']['crm'];
 
     return domain;
   }

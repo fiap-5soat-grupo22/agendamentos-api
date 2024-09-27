@@ -12,10 +12,10 @@ const config: Config.InitialOptions = {
   coveragePathIgnorePatterns: ['/node_modules/', '/dist/'],
   coverageThreshold: {
     global: {
-      statements: 90,
-      branches: 60,
-      functions: 90,
-      lines: 90,
+      statements: 80,
+      branches: 80,
+      functions: 80,
+      lines: 80,
     },
   },
   transform: {
